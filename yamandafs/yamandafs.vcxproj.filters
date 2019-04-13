@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ymdfs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ymdfs_client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ymdfs_impl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NameServerClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLocationRequest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLocationResponse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NameServer_Stub.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="File_impl_wrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FileImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="nameserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="chunkserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="rpc_client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadBlockRequest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadBlockResponse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="chunkserver_impl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="data_block.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="counter_manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="file_cache.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Disk.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ymdfs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ymdfs_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NameServerClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLocationRequest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLocationResponse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NameServer_Stub.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="File_impl_wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rpc_client.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="nameserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadBlockRequest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadBlockResponse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkserver_impl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_pool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="data_block.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="counter_manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="file_cache.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Disk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
