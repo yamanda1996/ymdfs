@@ -58,6 +58,7 @@ namespace yamanda
 				{
 					response->mutable_databuf()->assign(buf, len);
 					LOG(INFO, "");				//4ÔÂ12ÈÕ  yamanda
+					//fjdks 
 				}
 				
 			}
