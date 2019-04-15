@@ -6,7 +6,7 @@ namespace yamanda
 	namespace ymdfs
 	{
 
-		extern Counter g_find_ops;
+		extern common::Counter g_find_ops;
 
 		BlockManager::BlockManager()
 		{

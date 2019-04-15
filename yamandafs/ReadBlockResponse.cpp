@@ -1,4 +1,5 @@
 #include "ReadBlockResponse.h"
+#include "chunkserver_impl.h"
 
 namespace yamanda
 {
@@ -56,6 +57,16 @@ namespace yamanda
 		ReadBlockResponse::MutableDatabuf* ReadBlockResponse::mutable_databuf()
 		{
 			return mutable_databuf_;
+		}
+
+		int64_t ReadBlockResponse::timestamp(int n) const
+		{
+			return timestamps_.at(n);
+		}
+
+		int ReadBlockResponse::status()
+		{
+			return status_;
 		}
 
 	}

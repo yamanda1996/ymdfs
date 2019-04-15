@@ -45,21 +45,21 @@ namespace yamanda
 			return micro_time;
 		}
 
-		Counter::Counter():count_(0){}
-		Counter::~Counter(){}
-		int64_t Counter::Inc()
-		{
-			//也可以使用原子操作
-			std::lock_guard<std::mutex> lock(count_mutex_);
-			count_++;
-			return count_;
-		}
-		int64_t Counter::Dec()
-		{
-			std::lock_guard<std::mutex> lock(count_mutex_);
-			count_--;
-			return count_;
-		}
+		//common::Counter::Counter():count_(0){}
+		//common::Counter::~Counter(){}
+		//int64_t common::Counter::Inc()
+		//{
+		//	//也可以使用原子操作
+		//	std::lock_guard<std::mutex> lock(count_mutex_);
+		//	count_++;
+		//	return count_;
+		//}
+		//int64_t common::Counter::Dec()
+		//{
+		//	std::lock_guard<std::mutex> lock(count_mutex_);
+		//	count_--;
+		//	return count_;
+		//}
 
 	}
 }

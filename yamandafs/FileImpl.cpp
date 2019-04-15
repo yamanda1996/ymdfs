@@ -1,4 +1,6 @@
 #include "FileImpl.h"
+#include "chunkserver_impl.h"
+#include "rpc_client.h"
 
 
 
@@ -218,12 +220,66 @@ namespace yamanda
 			for (int retry_time = 0;retry_time < lcblock.chains_size() * 2;retry_time++)
 			{
 				LOG(DEBUG,"start Pread %s",cs_addr.c_str());
-				ymdfs_->rpc_client_->SendRequest(chunkserver, &ChunkServer_Stub::ReadBlock,
+				ret = ymdfs_->rpc_client_->SendRequest(chunkserver, &ChunkServer_Stub::ReadBlock,
 					&request, &response, 15, 3);
-
+				//读取的数据被保存到ReadBlockResponse的MutableDatabuf中
+				if (!ret || kOk != response.status())
+				{
+					//如果从当前chunkserver读取文件失败，则选择下一个chunkserver尝试
+					cs_addr = lcblock.chains((++last_chunkserver_index_) % lcblock.chains_size()).address();
+					LOG(INFO, "Pread retry another chunkserver %s", cs_addr.c_str());
+					{
+						std::lock_guard<std::mutex> lock(mutex_);
+						if (chunkserver_stub_ != chunkserver)
+						{
+							chunkserver = chunkserver_stub_;
+						}
+						else
+						{
+							bad_chunkservers_.insert(chunkserver);
+							rpc_client_->GetStub(cs_addr, &chunkserver);
+							chunkserver_stub_ = chunkserver;
+						}
+					}
+				}
+				else
+				{
+					break;		//读取内容成功
+				}
 			}
-
-
+			if (!ret || kOk != response.status())
+			{
+				LOG(WARNING, "ReadBlock #%ld fail,ret = %d,status = %d",
+					block_id, ret, response.status());
+				if (!ret)
+				{
+					return TIMEOUT;
+				}
+				else
+				{
+					return response.status();
+				}
+			}
+			int64_t read_real_size = response.mutable_databuf()->size();
+			//真实读取的数据长度
+			//如果读入的内容超过指定的长度，则需要把多读出来的内容拷贝到缓冲区中
+			if (read_real_size > read_size)
+			{
+				std::lock_guard<std::mutex> lock(mutex_);
+				int64_t cache_len = read_real_size - read_size;
+				if (reada_buf_len_ < cache_len)
+				{
+					delete[] reada_buf_;
+					reada_buf_ = new char[cache_len];
+				}
+				reada_buf_len_ = cache_len;
+				memcpy(reada_buf_, response.mutable_databuf()->data(), cache_len);
+				reada_base_ = offset + read_size;
+				read_real_size = read_size;
+			}
+			assert(read_size >= read_real_size);
+			memcpy(buf, response.mutable_databuf()->data(), read_real_size);
+			return read_real_size;
 		}
 		int32_t FileImpl::Read(char *buf, int32_t read_size)
 		{

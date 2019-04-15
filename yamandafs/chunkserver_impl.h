@@ -14,8 +14,9 @@ namespace yamanda
 
 		enum StatusCode
 		{
-			kOk = 0,
-			kCsNotFound = 1
+			kOk						= 0,
+			kCsNotFound				= 1,
+			kReadError				= 2
 		};
 		class ReadBlockRequest;
 		class chunkserver_impl:public chunkserver

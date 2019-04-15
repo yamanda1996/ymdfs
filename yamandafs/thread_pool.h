@@ -27,8 +27,8 @@ namespace yamanda
 			}
 
 		private:
-			std::mutex task_queue_mutex_;
-			std::queue<Task> task_queue_;
+			std::mutex				task_queue_mutex_;
+			std::queue<Task>		task_queue_;
 		};
 
 	}

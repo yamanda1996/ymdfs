@@ -45,12 +45,13 @@ namespace yamanda
 			int AddRef();
 			int64_t Read(char *buf,int64_t len,int64_t offset);
 			std::string BuildFilePath(int64_t block_id);
+			int DecRef();
 
 		private:
 
 
 		private:
-			volatile int refs_;
+			volatile int		refs_;
 			Common*				common_;
 			char*				blockbuf_;
 			std::mutex			mutex_;

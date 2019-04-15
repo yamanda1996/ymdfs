@@ -144,6 +144,13 @@ namespace yamanda
 			return file_path;
 		}
 
+		int Data_Block::DecRef()
+		{
+			int res = common_->atomic_add(&refs_, -1);
+			assert(res >= 0);
+			return res;
+		}
+
 	}
 }
 

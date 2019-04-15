@@ -1,10 +1,15 @@
 #include "chunkserver_impl.h"
 
+#include "counter_manager.h"
+
 namespace yamanda
 {
 
 	namespace ymdfs
 	{
+		extern common::Counter g_read_bytes;
+		extern common::Counter g_read_ops;
+
 		chunkserver_impl::chunkserver_impl()
 		{
 			block_manager_ = new BlockManager;
@@ -57,13 +62,30 @@ namespace yamanda
 				if (len >= 0)
 				{
 					response->mutable_databuf()->assign(buf, len);
-					LOG(INFO, "");				//4ÔÂ12ÈÕ  yamanda
-					//fjdks 
+					LOG(INFO, "ReadBlock #%ld offset: %ld len: %d return: %ld \
+						use %ld %ld %ld %ld %ld",block_id,offset,read_len,len,
+						(response->timestamp(0) - request->sequence_id()) / 1000,		//rpc time
+						(find_start - response->timestamp(0)) / 1000,		//dispatch time
+						(read_start - find_start) / 1000,		//find time
+						(read_end - read_start) / 1000,			//read time
+						(read_end - response->timestamp(0) / 1000));	//service time
+					g_read_ops.Inc();
+					g_read_bytes.Add(len);
 				}
-				
+				else
+				{
+					status = kReadError;
+					LOG(WARNING, "ReadBlock #%ld fail offset: %ld len: %ld",
+						block_id, offset, read_len);
+				}
+				delete[] buf;
 			}
-
-
+			response->set_status(status);
+			done->Run();
+			if (block)
+			{
+				block->DecRef();
+			}
 		}
 	}
 }

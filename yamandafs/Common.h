@@ -42,7 +42,7 @@ namespace yamanda
 		};
 
 		
-		class Counter
+		/*class Counter
 		{
 		public:
 			Counter();
@@ -54,7 +54,7 @@ namespace yamanda
 			int64_t count_;
 			std::mutex count_mutex_;
 
-		};
+		};*/
 
 	}
 }
@@ -185,20 +185,26 @@ namespace common
 		{
 			counter_.store(0);
 		}
-		int Inc()
+		int64_t Inc()
 		{
 			counter_++;
 			return counter_;
 		}
 
-		int Dec()
+		int64_t Dec()
 		{
 			counter_--;
 			return counter_;
 		}
+		
+		int64_t Add(int64_t num)
+		{
+			counter_ += num;
+			return counter_;
+		}
 
 	private:
-		volatile std::atomic<int> counter_{ 0 };
+		volatile std::atomic<int64_t> counter_{ 0 };
 
 	};
 

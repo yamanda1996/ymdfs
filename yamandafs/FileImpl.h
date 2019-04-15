@@ -6,6 +6,7 @@
 #include <atomic>
 #include <vector>
 #include <functional>
+#include <set>
 
 #include "ymdfs.h"
 #include "Common.h"
@@ -14,6 +15,8 @@
 #include "ymdfs_impl.h"
 #include "ReadBlockRequest.h"
 #include "ReadBlockResponse.h"
+#include "google/protobuf/service.h"
+#include "google/protobuf/repeated_field.h"
 
 #define FLAGS_sdk_file_reada_len 4*1024*1024*1024
 
@@ -59,7 +62,7 @@ namespace yamanda
 		{
 			int64_t file_length_;
 			std::vector<LocatedBlock> blocks_;
-			void CopyFrom(const ::google::protobuf::RepeatedPtrFiled<LocatedBlock> &blocks)
+			void CopyFrom(const ::google::protobuf::RepeatedPtrField<LocatedBlock> &blocks)
 			{
 				for (int i = 0;i < blocks.size();++i)
 				{
@@ -86,27 +89,28 @@ namespace yamanda
 			int32_t Close();
 
 		private:
-			ymdfs_impl *ymdfs_;
+			ymdfs_impl*					ymdfs_;
 
-			std::string name_;
-			std::mutex mutex_;
+			std::string					name_;
+			std::mutex					mutex_;
 			//上一次读取的偏移量
-			int64_t last_read_offset_;
+			int64_t						last_read_offset_;
 			//顺序读取比例
-			int32_t sequential_ratio_;
-			char * reada_buf_;
-			int64_t reada_base_;
-			int32_t reada_buf_len_;
+			int32_t						sequential_ratio_;
+			//读入文件缓冲区
+			char*						reada_buf_;
+			int64_t						reada_base_;
+			int32_t						reada_buf_len_;
 
 			//Block默认保存三份，所以chains_size默认就是3
-			LocatedBlocks located_blocks_;
-			int32_t last_chunkserver_index_;
-			ChunkServer_Stub *chunkserver_stub_;
+			LocatedBlocks				located_blocks_;
+			int32_t						last_chunkserver_index_;
+			ChunkServer_Stub*			chunkserver_stub_;
+			int32_t						last_chunkserver_index_;
+			std::set<ChunkServer_Stub*>	bad_chunkservers_;
 
-
-
-			Common *common_;
-
+			RpcClient*					rpc_client_;
+			Common*						common_;
 
 		};
 	}
